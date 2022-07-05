@@ -1,0 +1,25 @@
+name: 'Continuous Integration Test'
+
+# pr이 생기면
+on: pull_request
+
+jobs:
+  # pr의 변경파일 리스트를 가져온다.
+  get-changed-files:
+    runs-on: self-hosted
+    outputs:
+      jobs: ${{ steps.detect.outputs.jobs }}
+    steps:
+      - id: checkout
+        uses: actions/checkout@v2
+      - id: files
+        uses: jitterbit/get-changed-files@v1
+        with:
+          format: 'space-delimited'
+      - id: print
+        run: |
+          for changed_file in ${{ steps.files.outputs.all }}; do
+            echo "Do something with this ${changed_file}."
+          done
+  # 변경파일 리스트로부터 실행될 테스트를 정한다.
+  # 각 테스트를 돌린다.
