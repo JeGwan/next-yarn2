@@ -46,3 +46,6 @@ __generated__
 !.yarn/releases
 !.yarn/sdks
 !.yarn/versions
+
+# self hosted runner
+actions-runner
